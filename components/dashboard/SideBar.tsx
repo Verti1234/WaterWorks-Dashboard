@@ -42,7 +42,7 @@ export default function SideBar() {
         href={'/dashboard/infrastructure'}
         >
           <Waypoints size={32}/>
-          <span className='text-xl'>Stacje</span>
+          <span className='text-xl'>Infrastruktura</span>
         </Link>
 
       </div>

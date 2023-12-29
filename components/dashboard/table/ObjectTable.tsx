@@ -1,5 +1,5 @@
 "use client"
- 
+
 import * as React from "react"
 import {
   ColumnDef,
@@ -8,7 +8,6 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
@@ -54,15 +53,16 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center pb-4">
-      <Input
-        placeholder="Filtruj obiekty..."
-        value={globalFilter ?? ""}
-        onChange={(event) => setGlobalFilter(event.target.value)
-          // table.getColumn("name")?.setFilterValue(event.target.value)
-        }
-        className="max-w-sm"
-      />
+      <div className="flex justify-between items-center pb-4">
+        <h1 className="text-2xl font-semibold leading-none tracking-tight">Obiekty</h1>
+        <Input
+          placeholder="Filtruj obiekty..."
+          value={globalFilter ?? ""}
+          onChange={(event) => setGlobalFilter(event.target.value)
+            // table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
     </div>
       <div className="rounded-md border">
         <Table>
@@ -71,7 +71,10 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} 
+                    style={{
+                      width: header.index === 0 ? 50 : "auto",
+                    }}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(

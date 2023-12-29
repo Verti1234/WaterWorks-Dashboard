@@ -40,3 +40,42 @@ export async function getDataTable(): Promise<Objects[]> {
     //...
   ]
 }
+
+export const ChartData = [
+  {
+    name: "Lipiec",
+    ph: 7,
+  },
+  {
+    name: "Sierpień",
+    ph: 12,
+  },
+  {
+    name: "Wrzesień",
+    ph: 8,
+  },
+  {
+    name: "Październik",
+    ph: 5,
+  },
+  {
+    name: "Listopad",
+    ph: 7,
+  },
+  {
+    name: "Grudzień",
+    ph: 6,
+  },
+  {
+    name: "Styczeń",
+    ph: 7,
+  }
+];
+
+export const PieData = [
+  { name: 'Group A', value: 2 },
+  { name: 'Group B', value: 1 },
+  { name: 'Group C', value: 2 },
+  
+]
+export const COLORS = ['#6366f1', '#67e8f9', '#3b82f6'];
