@@ -16,7 +16,7 @@ import ChartPie from "@/components/dashboard/ChartPie";
 import ChartArea from "@/components/dashboard/ChartArea";
 
 
-export default function page() {
+export default function Page() {
 
   const [data, setData] = useState<Object[]>([])
   useEffect(() => {

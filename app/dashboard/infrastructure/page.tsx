@@ -6,7 +6,7 @@ import { ReactFlowProvider } from 'reactflow';
 
 
 
-export default function page() {
+export default function Page() {
   return (
     <div className='w-full h-full flex flex-col'>
       <div className="h-[10%] flex  justify-between items-center">
