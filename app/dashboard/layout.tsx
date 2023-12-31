@@ -7,7 +7,6 @@ export default function DashboardLayout({
 }) {
   return (
     <section className="flex gap-4 w-screen h-screen p-4">
-      {/* Include shared UI here e.g. a header or sidebar */}
       <SideBar />
       {children}
     </section>

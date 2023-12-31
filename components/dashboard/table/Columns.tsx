@@ -22,7 +22,7 @@ function formatDate(date: Date) {
   return `${day}.${month}.${year}`;
 }
 
-export const columns: ColumnDef<Objects>[] = [
+export const columns: ColumnDef<unknown,Objects>[] = [
   {
     accessorKey:"id",
     
@@ -116,9 +116,9 @@ export const columns: ColumnDef<Objects>[] = [
     cell: ({ row }) => {
       return (
         row.getValue("status") == 'OK' ? 
-        <div className="bg-indigo-500 text-white font-bold rounded-xl flex justify-center items-center w-min px-2">OK</div> 
+        <div className="bg-indigo-500 text-white font-bold rounded-xl flex justify-center items-center w-min px-2">Ok</div> 
         : 
-        <div className="bg-blue-400 text-white font-bold rounded-xl flex justify-center items-center w-min px-2">ERROR</div>
+        <div className="bg-blue-400 text-white font-bold rounded-xl flex justify-center items-center w-min px-2">Error</div>
       )
     },
   

@@ -8,8 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { COLORS, ChartData, PieData, getDataTable } from "@/config";
-import { Building2,Sun  } from 'lucide-react';
+import { COLORS, AreaData, PieData, getDataTable } from "@/config";
+import { Building2,Droplet,Menu,Moon,Sun  } from 'lucide-react';
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import {
   XAxis,
   YAxis,
@@ -23,17 +25,42 @@ import {
   Cell
 } from "recharts";
 
+import {useMediaQuery} from '@react-hook/media-query'
+
+import MobileSideBar from "@/components/dashboard/MobileSideBar";
+import ThemeBtn from "@/components/ThemeBtn";
 
 
-export default async function page() {
+export default function page() {
+  const { setTheme,theme } = useTheme()
+  const [data, setData] = useState<Object[]>([])
+  // const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  const data = await getDataTable()
+  const isSmallScreen = useMediaQuery('(max-width: 768px)')
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getDataTable()
+      setData(data);
+    };
+    fetchData();
+    console.log(theme);
+    
+  }, [])
 
+  
   return (
-    <div className='w-full h-full '>
+    <div className='w-full h-full flex flex-col'>
       <div className="h-[10%] flex justify-between items-center">
-      <h1 className='p-2 text-5xl font-bold  flex items-center'>Dashboard</h1>
-      <Button variant="outline" size="icon"><Sun className="h-5 w-5" /></Button>
+      <h1 className='p-2 text-5xl font-bold  flex items-center max-[750px]:text-3xl'>Dashboard</h1>
+      {/* {isSmallScreen ? (
+        
+      )
+      : 
+      (
+        
+      )} */}
+      <MobileSideBar />
+      <ThemeBtn />
       </div>
 
       <div className="w-full h-[90%]  grid gap-4 grid-cols-4 grid-rows-6">
@@ -93,7 +120,7 @@ export default async function page() {
                     dataKey="value"
                   >
                     {PieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   
@@ -105,7 +132,7 @@ export default async function page() {
           <Card className="shadow-xl col-span-2 row-span-2 p-4 flex flex-col">
             <h1 className="text-2xl font-semibold leading-none tracking-tight">Jakość wody</h1>
             <ResponsiveContainer width="100%" height="100%" className='pb-4 -ml-6'>
-            <AreaChart width={800} height={200} data={ChartData}
+            <AreaChart width={800} height={200} data={AreaData}
               margin={{ top: 30, right: 30, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
@@ -115,8 +142,10 @@ export default async function page() {
               </defs>
               <XAxis dataKey="name"  className="pt-4" />
               <YAxis   />
-              <CartesianGrid  vertical={false}   />
-              <Tooltip offset={16}  />
+              <CartesianGrid  vertical={false} fillOpacity={0.6} />
+              <Tooltip 
+              labelStyle={{ color: 'black'}} 
+                contentStyle={{ backgroundColor: 'white' ,borderRadius:5 }} />
               <Area type="monotone" dataKey="ph" stroke="#6366f1" fillOpacity={1} fill="url(#colorPv)" />
             </AreaChart>
             </ResponsiveContainer>
@@ -128,5 +157,6 @@ export default async function page() {
           
       </div>
     </div>
+    
   )
 }

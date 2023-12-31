@@ -1,5 +1,6 @@
 import { Objects } from "./components/dashboard/table/Columns";
 
+
 export async function getDataTable(): Promise<Objects[]> {
   return [
     {
@@ -37,11 +38,12 @@ export async function getDataTable(): Promise<Objects[]> {
       date:new Date('2021-05-22T23:50:21.817Z'),
       status:'ERROR'
     },
-    //...
   ]
 }
 
-export const ChartData = [
+// charts Data
+
+export const AreaData = [
   {
     name: "Lipiec",
     ph: 7,
@@ -73,9 +75,9 @@ export const ChartData = [
 ];
 
 export const PieData = [
-  { name: 'Group A', value: 2 },
-  { name: 'Group B', value: 1 },
-  { name: 'Group C', value: 2 },
-  
+  { name: 'Oczyszczalnie', value: 2 },
+  { name: 'Stacje', value: 1 },
+  { name: 'Źródła', value: 2 },
 ]
 export const COLORS = ['#6366f1', '#67e8f9', '#3b82f6'];
+
