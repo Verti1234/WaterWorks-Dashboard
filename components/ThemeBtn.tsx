@@ -7,13 +7,12 @@ import {
 import { Moon,Sun  } from 'lucide-react';
 import { Button } from "./ui/button";
 import { useTheme } from "next-themes";
-import { useMediaQuery } from "@react-hook/media-query";
 
 export default function ThemeBtn() {
   const { setTheme } = useTheme()
-  const isSmallScreen = useMediaQuery('(max-width: 768px)')
+  
   return (
-    <div className={`${isSmallScreen == true ? 'hidden':'block'}`}>
+    <div className='hidden sm:block'>
     <DropdownMenu >
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">

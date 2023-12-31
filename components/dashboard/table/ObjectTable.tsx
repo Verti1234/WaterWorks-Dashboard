@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) => setGlobalFilter(event.target.value)
             // table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="sm:max-w-sm w-3/5 "
         />
     </div>
       <div className="rounded-md border">

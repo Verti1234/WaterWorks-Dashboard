@@ -1,72 +1,44 @@
 "use client"
 import { columns } from "@/components/dashboard/table/Columns";
 import { DataTable } from "@/components/dashboard/table/ObjectTable";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { COLORS, AreaData, PieData, getDataTable } from "@/config";
-import { Building2,Droplet,Menu,Moon,Sun  } from 'lucide-react';
-import { useTheme } from "next-themes";
+import { getDataTable } from "@/config";
+import { Building2 } from 'lucide-react';
 import { useEffect, useState } from "react";
-import {
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  AreaChart,
-  Area,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell
-} from "recharts";
-
-import {useMediaQuery} from '@react-hook/media-query'
-
 import MobileSideBar from "@/components/dashboard/MobileSideBar";
 import ThemeBtn from "@/components/ThemeBtn";
+import ChartPie from "@/components/dashboard/ChartPie";
+import ChartArea from "@/components/dashboard/ChartArea";
 
 
 export default function page() {
-  const { setTheme,theme } = useTheme()
-  const [data, setData] = useState<Object[]>([])
-  // const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  const isSmallScreen = useMediaQuery('(max-width: 768px)')
+  const [data, setData] = useState<Object[]>([])
   useEffect(() => {
     const fetchData = async () => {
       const data = await getDataTable()
       setData(data);
     };
     fetchData();
-    console.log(theme);
     
   }, [])
-
   
   return (
-    <div className='w-full h-full flex flex-col'>
+    <div className='w-full h-full  flex flex-col'>
       <div className="h-[10%] flex justify-between items-center">
       <h1 className='p-2 text-5xl font-bold  flex items-center max-[750px]:text-3xl'>Dashboard</h1>
-      {/* {isSmallScreen ? (
-        
-      )
-      : 
-      (
-        
-      )} */}
       <MobileSideBar />
       <ThemeBtn />
       </div>
-
-      <div className="w-full h-[90%]  grid gap-4 grid-cols-4 grid-rows-6">
-          <Card className="shadow-xl">
+      <div className="w-full 2xl:h-[90%]  sm:pb-0 grid gap-4 grid-cols-1 grid-rows-8 sm:grid-cols-4 sm:grid-rows-6">
+          <Card className="shadow-xl  ">
             <CardHeader className="px-4 pt-4 pb-2 text-xl font-medium  ">
-              <CardTitle>Aktywne</CardTitle>
+              <CardTitle className="text-lg lg:text-2xl">Aktywne</CardTitle>
             </CardHeader>
             <CardContent className="flex justify-between gap-4 items-center px-4">
               <div className="flex justify-between gap-4 items-center">
@@ -77,9 +49,9 @@ export default function page() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-xl">
+          <Card className="shadow-xl ">
             <CardHeader className="px-4 pt-4 pb-2 text-xl font-medium  ">
-                <CardTitle>Nieaktywne</CardTitle>
+                <CardTitle className="text-lg lg:text-2xl">Nieaktywne</CardTitle>
               </CardHeader>
               <CardContent className="flex justify-between gap-4 items-center px-4">
                 <div className="flex justify-between gap-4 items-center">
@@ -90,68 +62,33 @@ export default function page() {
               </CardContent>
           </Card>
 
-          <Card className="shadow-xl col-span-2 row-span-3  p-4 flex flex-col">
+          <Card className="shadow-xl sm:col-span-2 sm:row-span-3 row-span-4  p-4 flex flex-col">
             <h1 className="text-2xl font-semibold leading-none tracking-tight w-full">Ilość obiektów</h1>
-            <div className="flex justify-center items-center w-full h-full ">
-              <div className="flex flex-col justify-center gap-4 h-full">
+            <div className="flex lg:flex-row   flex-col justify-center items-center w-full h-full ">
+              <div className="flex flex-col  justify-start pt-4 gap-4  w-full ">
                 <div className="flex items-center  gap-4">
                   <div className="w-8 h-4 rounded-lg bg-indigo-500 "></div>
-                  <span className="text-2xl font-medium">Oczyszczalnie</span>
+                  <span className="lg:text-xl font-medium">Oczyszczalnie</span>
                 </div>
                 <div className="flex items-center  gap-4">
                   <div className="w-8 h-4 rounded-lg bg-blue-500 "></div>
-                  <span className="text-2xl font-medium">Źródła</span>
+                  <span className="lg:text-xl font-medium">Źródła</span>
                 </div>
                 <div className="flex items-center  gap-4">
                   <div className="w-8 h-4 rounded-lg bg-cyan-300 "></div>
-                  <span className="text-2xl font-medium">Stacje</span>
+                  <span className="lg:text-xl font-medium">Stacje</span>
                 </div>
               </div>
-              <ResponsiveContainer  width="50%" height="100%" >
-                <PieChart width={900} height={900}>
-                  <Pie
-                    data={PieData}
-                    cx='50%'
-                    cy='50%'
-                    innerRadius={90}
-                    outerRadius={120}
-                    paddingAngle={2}
-                    label={true}
-                    dataKey="value"
-                  >
-                    {PieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  
-                </PieChart>
-              </ResponsiveContainer>
+              <ChartPie />
             </div>
           </Card>
 
-          <Card className="shadow-xl col-span-2 row-span-2 p-4 flex flex-col">
+          <Card className="shadow-xl sm:col-span-2 sm:row-span-2 row-span-2 p-4 flex flex-col ">
             <h1 className="text-2xl font-semibold leading-none tracking-tight">Jakość wody</h1>
-            <ResponsiveContainer width="100%" height="100%" className='pb-4 -ml-6'>
-            <AreaChart width={800} height={200} data={AreaData}
-              margin={{ top: 30, right: 30, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="name"  className="pt-4" />
-              <YAxis   />
-              <CartesianGrid  vertical={false} fillOpacity={0.6} />
-              <Tooltip 
-              labelStyle={{ color: 'black'}} 
-                contentStyle={{ backgroundColor: 'white' ,borderRadius:5 }} />
-              <Area type="monotone" dataKey="ph" stroke="#6366f1" fillOpacity={1} fill="url(#colorPv)" />
-            </AreaChart>
-            </ResponsiveContainer>
+            <ChartArea />
           </Card>
 
-          <Card className=" shadow-xl col-span-4 row-span-3 p-4">
+          <Card className=" shadow-xl sm:col-span-4 row-span-2 sm:row-span-3 p-4 h-min">
             <DataTable columns={columns} data={data} />
           </Card>
           

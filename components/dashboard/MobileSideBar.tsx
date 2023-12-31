@@ -2,8 +2,6 @@ import React from 'react'
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,20 +9,14 @@ import {
 import { Droplet, LayoutDashboard,  Menu, Waypoints } from 'lucide-react'
 import { Separator } from '../ui/separator'
 import Link from 'next/link'
-import ThemeBtn from '../ThemeBtn'
-import { useMediaQuery } from '@react-hook/media-query'
 
 export default function MobileSideBar() {
 
-  const isSmallScreen = useMediaQuery('(max-width: 768px)')
-  console.log(isSmallScreen);
-  
-
   return (
-    <div className={`${isSmallScreen == true ? 'block':'hidden'}`}>
-    <Sheet >
+    <div className='block sm:hidden'>
+    <Sheet>
         <SheetTrigger className='mr-4'><Menu/></SheetTrigger>
-        <SheetContent>
+        <SheetContent >
           <SheetHeader>
             <SheetTitle>
               <div className='flex justify-start items-center gap-2 mb-4'>
@@ -37,13 +29,13 @@ export default function MobileSideBar() {
                   </svg>
                   <Droplet size={32} style={{ stroke: "url(#purple-gradient)" }} />
                 </span>
-                <h1 className='text-2xl  flex items-center font-semibold '>Aqua Control</h1>
+                <h1 className='text-xl  flex items-center font-semibold '>Aqua Control</h1>
               </div>
               </SheetTitle>
             <Separator className='mb-8 mt-4'/>
 
             <div className="h-96 flex flex-col justify-between">
-            <div className='w-full h-1/5 flex flex-col gap-8 mt-4'>
+            <div className='w-full h-full flex flex-col gap-8 mt-4'>
               <Link 
                 href={'/dashboard'}
                 className='flex justify-start items-center gap-4'
@@ -59,9 +51,7 @@ export default function MobileSideBar() {
                 <span className='text-xl'>Infrastruktura</span>
               </Link>
             </div>
-              <div>
-                <ThemeBtn />
-              </div> 
+              
               
             </div>
           </SheetHeader>
